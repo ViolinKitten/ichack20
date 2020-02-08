@@ -13,7 +13,7 @@ public Class Vocabulary {
         MOTHER,
         FATHER,
         SISTER,
-        BROTHER
+        BROTHER;
     }
 
     enum Level2 {
@@ -21,7 +21,7 @@ public Class Vocabulary {
         RED,
         GREEN,
         BLUE,
-        YELLOW
+        YELLOW;
     }
 
     enum Level3 {
@@ -29,7 +29,7 @@ public Class Vocabulary {
         DOG,
         BIRD,
         FISH,
-        MOUSE
+        MOUSE;
 
     }
     enum Level4 {
@@ -37,7 +37,7 @@ public Class Vocabulary {
         TABLE,
         SOFA,
         BED,
-        LAMP
+        LAMP;
         
     }
 
@@ -46,20 +46,7 @@ public Class Vocabulary {
         PEAR,
         BANANA,
         CHERRY,
-        ORANGE
+        ORANGE;
     }
-
-//    enum Level6 {
-//        ONE,
-//        TWO,
-//        THREE,
-//        FOUR,
-//        FIVE,
-//        SIX,
-//        SEVEN,
-//        EIGHT, 
-//        NINE,
-//        TEN
-//    }
 
 }
