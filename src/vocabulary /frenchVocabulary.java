@@ -24,6 +24,8 @@ public Class FrenchVocabulary {
     public String toString() {
        return this.name;
     }
+
+    
     }
 
     enum Level2French {

@@ -1,9 +1,21 @@
-public class allLevelVocab(enum sourceLanguage, enum targetLanguage) {
-    
-    private HashMap<String, String> vocabMaps = new HashMap<String, HashMap<String, String>()>();
+import java.util.HashMap;
+import java.util.ArrayList;
 
-    for (int i = 0, i < sourceLanguage.values().length, i++) {
+public class allLevelsVocab {
+
+    ArrayList<ArrayList<String>> sourceLanguage;
+    ArrayList<ArrayList<String>> targetLanguage;
+    private HashMap<String, vocabularyList> vocabMaps = new HashMap<>();
+
+    public allLevelsVocab(ArrayList<ArrayList<String>> sourceLanguage, ArrayList<ArrayList<String>> targetLanguage) {
+        this.sourceLanguage = sourceLanguage;
+        this.targetLanguage = targetLanguage;
+
+        for (int i = 0; i < sourceLanguage.size(); i++) {
         String key = "Level" + i;
-        wordMap.put(key, new vocabularyList(sourceLanguage.values()[i].name, targetLanguage.values()[i].name))
+        vocabMaps.put(key, new vocabularyList(sourceLanguage.get(i), targetLanguage.get(i)));
     }
+    }
+
+   
 }
