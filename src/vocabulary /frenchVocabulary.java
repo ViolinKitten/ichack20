@@ -1,4 +1,6 @@
-public Class FrenchVocabulary {
+import java.util.ArrayList;
+
+public class frenchVocabulary {
 
     enum FrenchLevels {
         LEVEL1FRENCH,
@@ -6,7 +8,24 @@ public Class FrenchVocabulary {
         LEVEL3FRENCH,
         LEVEL4FRENCH,
         LEVEL5FRENCH;
+
     }
+
+    private static final int size = FrenchLevels.values().length;
+
+    FrenchLevels[] array = FrenchLevels.class.getEnumConstants();
+    
+    public ArrayList<ArrayList<String>> getVocabulary() {
+        
+        ArrayList<ArrayList<String>> vocabulary = new ArrayList<ArrayList<String>>();
+        vocabulary.add(Level1French.values()[0].toList());
+        vocabulary.add(Level2French.values()[0].toList());
+        vocabulary.add(Level3French.values()[0].toList());
+        vocabulary.add(Level4French.values()[0].toList());
+        vocabulary.add(Level5French.values()[0].toList());
+
+       return vocabulary;
+   }
 
     enum Level1French {
         FAMILY("FAMILLE"),
@@ -17,7 +36,7 @@ public Class FrenchVocabulary {
 
     public final String name;       
 
-    private Modes(String s) {
+    private Level1French(String s) {
         name = s;
     }
 
@@ -25,7 +44,18 @@ public Class FrenchVocabulary {
        return this.name;
     }
 
-    
+    private static final int size = Level1French.values().length;
+
+    Level1French[] array = Level1French.class.getEnumConstants();
+
+    private ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(array[i].name());
+        }
+
+        return list;
+    }
     }
 
     enum Level2French {
@@ -37,12 +67,25 @@ public Class FrenchVocabulary {
     
     public final String name;       
 
-    private Modes(String s) {
+    private Level2French(String s) {
         name = s;
     }
 
     public String toString() {
        return this.name;
+    }
+
+     private static final int size = Level2French.values().length;
+
+    Level2French[] array = Level2French.class.getEnumConstants();
+
+    private ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(array[i].name());
+        }
+
+        return list;
     }
 
     }
@@ -56,12 +99,25 @@ public Class FrenchVocabulary {
 
     public final String name;       
 
-    private Modes(String s) {
+    private Level3French(String s) {
         name = s;
     }
 
     public String toString() {
        return this.name;
+    }
+
+    private static final int size = Level3French.values().length;
+
+    Level3French[] array = Level3French.class.getEnumConstants();
+
+    private ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(array[i].name());
+        }
+
+        return list;
     }
 
     }
@@ -74,12 +130,24 @@ public Class FrenchVocabulary {
 
     public final String name;       
 
-    private Modes(String s) {
+    private Level4French(String s) {
         name = s;
     }
 
     public String toString() {
        return this.name;
+    }
+     private static final int size = Level4French.values().length;
+
+    Level4French[] array = Level4French.class.getEnumConstants();
+
+    private ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(array[i].name());
+        }
+
+        return list;
     }
 
     }
@@ -93,13 +161,27 @@ public Class FrenchVocabulary {
     
     public final String name;       
 
-    private Modes(String s) {
+    private Level5French(String s) {
         name = s;
     }
 
     public String toString() {
        return this.name;
     }
+
+     private static final int size = Level5French.values().length;
+
+    Level5French[] array = Level5French.class.getEnumConstants();
+
+    private ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            list.add(array[i].name());
+        }
+
+        return list;
+    }
+
     }
 
 }

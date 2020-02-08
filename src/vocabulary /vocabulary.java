@@ -8,6 +8,7 @@ public class vocabulary {
         LEVEL3,
         LEVEL4,
         LEVEL5;
+    }
 
     private static final int size = Levels.values().length;
 
@@ -23,8 +24,6 @@ public class vocabulary {
             vocabulary.add(Level5.values()[0].toList());
 
         return vocabulary;
-    }
-
     }
 
     enum Level1 {
