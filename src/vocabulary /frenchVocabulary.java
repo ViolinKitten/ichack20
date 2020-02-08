@@ -1,6 +1,14 @@
 public Class FrenchVocabulary {
 
-enum Level1French {
+    enum FrenchLevels {
+        LEVEL1FRENCH,
+        LEVEL2FRENCH,
+        LEVEL3FRENCH,
+        LEVEL4FRENCH,
+        LEVEL5FRENCH;
+    }
+
+    enum Level1French {
         FAMILY("FAMILLE"),
         MOTHER("MÈRE"),
         FATHER("PÈRE"),

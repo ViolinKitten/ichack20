@@ -1,5 +1,13 @@
 public Class Vocabulary {
 
+    enum Levels {
+        LEVEL1,
+        LEVEL2,
+        LEVEL3,
+        LEVEL4,
+        LEVEL5;
+    }
+
     enum Level1 {
         FAMILY,
         MOTHER,
