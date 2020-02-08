@@ -1,3 +1,5 @@
+package vocabulary;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -12,8 +14,8 @@ public class VocabularyList {
 
     }   
 
-    public String getLevelVocab(String level){
-        return wordMap.get(level);
+    public String getWord(String word){
+        return wordMap.get(word);
     } 
 
 }

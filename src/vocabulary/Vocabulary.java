@@ -1,6 +1,10 @@
+package vocabulary;
+
 import java.util.ArrayList;
 
 public class Vocabulary {
+
+    public Vocabulary() {}
 
     enum Levels {
         LEVEL1,

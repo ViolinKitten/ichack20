@@ -1,6 +1,10 @@
+package vocabulary;
+
 import java.util.ArrayList;
 
 public class FrenchVocabulary {
+
+    public FrenchVocabulary() {}
 
     enum FrenchLevels {
         LEVEL1FRENCH,
@@ -10,6 +14,7 @@ public class FrenchVocabulary {
         LEVEL5FRENCH;
 
     }
+
 
     private static final int size = FrenchLevels.values().length;
 

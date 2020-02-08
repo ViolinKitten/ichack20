@@ -1,6 +1,7 @@
+package vocabulary;
+
 import java.util.HashMap;
 import java.util.ArrayList;
-//import VocabularyList;
 
 public class AllLevelsVocab {
 
@@ -17,6 +18,10 @@ public class AllLevelsVocab {
         vocabMaps.put(key, new VocabularyList(sourceLanguage.get(i), targetLanguage.get(i)));
     }
     }
+
+        public VocabularyList getLevelVocab(String level){
+        return vocabMaps.get(level);
+    } 
 
    
 }
