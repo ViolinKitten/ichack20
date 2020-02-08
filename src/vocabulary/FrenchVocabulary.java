@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class frenchVocabulary {
+public class FrenchVocabulary {
 
     enum FrenchLevels {
         LEVEL1FRENCH,

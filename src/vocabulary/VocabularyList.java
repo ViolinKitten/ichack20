@@ -1,11 +1,11 @@
 import java.util.HashMap;
 import java.util.ArrayList;
 
-public class vocabularyList {
+public class VocabularyList {
 
     private HashMap<String, String> wordMap = new HashMap<String, String>();
 
-    public vocabularyList(ArrayList<String> words, ArrayList<String> translation){
+    public VocabularyList(ArrayList<String> words, ArrayList<String> translation){
         for (int i = 0; i < words.size(); i++) {
         wordMap.put(words.get(i), translation.get(i));
     }
