@@ -133,6 +133,7 @@ public class Learning extends JFrame implements ActionListener {
         }
         if (src == playButton) {
             //something
+            dispose();
             try {
                 System.out.println("yo");
                 ChooseSprite game = new ChooseSprite(level1);

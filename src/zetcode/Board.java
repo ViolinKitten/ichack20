@@ -571,14 +571,15 @@ public class Board extends JPanel  implements ActionListener {
     Challenge challenge;
     switch(challengeKey) {
         case 0:
-            //    map.put("苹果", "apple");
-            //    map.put("香蕉", "banana");
-            challenge = new WordSearch(wordMap);
+
+            challenge = new MainHangman(listE, wordMap);
             challenge.open();
             challengeKey = 1;
             break;
         case 1:
-            challenge = new MainHangman(listF, wordMap);
+            //    map.put("苹果", "apple");
+            //    map.put("香蕉", "banana");
+            challenge = new WordSearch(wordMap);
             challenge.open();
             challengeKey = 2;
             break;
