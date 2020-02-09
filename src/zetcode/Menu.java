@@ -34,9 +34,11 @@ public class Menu implements ActionListener
   JLabel l1,l2, l3;
   JTextField t1,t2, t3;
   JButton b1;
+  String level1;
 
 
-  Menu() throws IOException {
+  Menu(String level1) throws IOException {
+    this.level1 = level1;
     l1=new JLabel("Level 0");
 
     BufferedImage myImage = ImageIO.read(new File("src/resources/startscreen.png"));
@@ -78,7 +80,7 @@ public class Menu implements ActionListener
           ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
           ArrayList<String> listF = vocabularyF.get(level);
 
-          Learning frame= new Learning(listE, new VocabularyList(listE, listF));
+          Learning frame= new Learning(listE, new VocabularyList(listE, listF), level1);
           // frame.initUI();
 
           frame.setVisible(true);
