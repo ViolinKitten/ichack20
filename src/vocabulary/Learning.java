@@ -24,21 +24,15 @@ public class Learning extends JFrame implements ActionListener {
     JButton listenB5 = new JButton("Listen");
     JButton playButton = new JButton("Play game!");
 
+    String level1;
 
-<<<<<<< HEAD
+
     public Learning(ArrayList<String> words, VocabularyList translations, int level) {
         this.words = words;
         this.translations = translations;
         this.level = level;
-=======
 
-    public Learning(ArrayList<String> words, VocabularyList translations) {
-        this.words = words;
-        this.translations = translations;
-        initUI();
-        System.out.println("yoyo");
 
->>>>>>> 63cd71535d93314a23dd6a4c3d7af34bc22fe69d
     }
 
     public void initUI() {
@@ -141,9 +135,10 @@ public class Learning extends JFrame implements ActionListener {
         }
         if (src == playButton) {
             //something
+            dispose();
             try {
                 System.out.println("yo");
-                ChooseSprite game = new ChooseSprite();
+                ChooseSprite game = new ChooseSprite(level1);
                 repaint();
             } catch (IOException e1) {
                 e1.printStackTrace();

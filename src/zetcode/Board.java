@@ -1,7 +1,13 @@
 package zetcode;
 
-import wordsearch.WordSearch;
+import Challenges.Challenge;
+import Challenges.hangman.MainHangman;
+import Challenges.wordsearch.WordSearch;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +16,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import javax.swing.*;
 
 public class Board extends JPanel  implements ActionListener {
 
@@ -37,7 +42,6 @@ public class Board extends JPanel  implements ActionListener {
     private int w = 0;
     private int h = 0;
     private int score;
-    int challenge = 1;
     private boolean isCompleted = false;
 
 
@@ -55,7 +59,7 @@ public class Board extends JPanel  implements ActionListener {
             + "    ########\n";
      */
 
-    private String level
+   /* private String level
         =  "####################\n"
         + "#    #             #\n"
         + "#    #   #  $ #    #\n"
@@ -67,10 +71,13 @@ public class Board extends JPanel  implements ActionListener {
         + "# $ #     @   #    #\n"
         + "#   #  #   #########\n"
         + "#      #           #\n"
-        + "####################\n";
+        + "####################\n"; */
     String sprite;
+    String level;
+    int challengeKey = 0;
 
-    public Board(JFrame frame, String sprite) {
+    public Board(JFrame frame, String sprite, String level) {
+        this.level = level;
         this.frame = frame;
         this.sprite = sprite;
         initBoard();
@@ -409,6 +416,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isLeftCollision(item)) {
+                                    scores[i] = 1;
+                                    recalculateScore();
 
                                     return true;
                                 }
@@ -539,31 +548,60 @@ public class Board extends JPanel  implements ActionListener {
     }
 
     private void recalculateScore() {
-        score = Arrays.stream(scores).sum();
         open();
+
+        score = Arrays.stream(scores).sum();
         if (score == 3) {
             JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         repaint();
     }
 
-    private void open() {
-        switch(challenge) {
-            case 1:
-                HashMap<String, String> map = new HashMap<>();
-//    map.put("苹果", "apple");
-//    map.put("香蕉", "banana");
-                map.put("apple", "苹果");
-                map.put("banana", "香蕉");
-                WordSearch game = new WordSearch(map);
-                challenge = 2;
-                break;
-            case 2:
+  private void open() {
+      int level = 0;
+      Vocabulary englishVocab = new Vocabulary();
+      ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
+      ArrayList<String> listE = vocabularyE.get(level);
 
+      FrenchVocabulary frenchVocab = new FrenchVocabulary();
+      ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
+      ArrayList<String> listF = vocabularyF.get(level);
 
-        }
+      HashMap<String, String> wordMap = new VocabularyList(listE, listF).getHashMap();
+
+    Challenge challenge;
+   // boolean result = true;
+    switch(challengeKey) {
+        case 0:
+
+            challenge = new MainHangman(listE, wordMap);
+            challenge.open();
+            challengeKey = 1;
+            break;
+        case 1:
+            //    map.put("苹果", "apple");
+            //    map.put("香蕉", "banana");
+            challenge = new WordSearch(wordMap);
+            challenge.open();
+            challengeKey = 2;
+            break;
+        case 2:
+            HashMap<String, String> map2 = new HashMap<>();
+            //    map.put("苹果", "apple");
+            //    map.put("香蕉", "banana");
+            challenge = new WordSearch(wordMap);
+            challenge.open();
+            challengeKey = 0;
+            break;
+        default:
+            break;
 
     }
+
+  //  return result;
+
+
+  }
 
     private boolean checkExitCollision(Actor actor, int type) {
 
@@ -588,14 +626,11 @@ public class Board extends JPanel  implements ActionListener {
                                     null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
 
                             if (n == JOptionPane.YES_OPTION) {
-                                System.out.println("Yes");
                                 restartLevel();
                             } else if (n == JOptionPane.NO_OPTION) {
                                 frame.dispose();
-                                Pro f1 = new Pro();
-                                System.out.println("No");
+                                Pro f1 = new Pro(level);
                             } else if (n == JOptionPane.CLOSED_OPTION) {
-                                System.out.println("Closed by hitting the cross");
                             }
                          //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
                         }
@@ -604,6 +639,39 @@ public class Board extends JPanel  implements ActionListener {
                 }
 
                 return false;
+            case RIGHT_COLLISION:
+                for (int i = 0; i < exits.size(); i++) {
+
+                    Exit exit = exits.get(i);
+
+                    if (actor.isRightCollision(exit)) {
+                        ImageIcon icon = new ImageIcon("src/resources/lock.png");
+                        UIManager UI=new UIManager();
+                        UI.put("OptionPane.background", Color.white);
+                        UI.put("Panel.background", Color.white);
+
+                        if (score != 3) {
+                            JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        } else {
+                            int n = JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!",
+                                "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
+
+                            if (n == JOptionPane.YES_OPTION) {
+                                restartLevel();
+                            } else if (n == JOptionPane.NO_OPTION) {
+                                frame.dispose();
+                                Pro f1 = new Pro(level);
+                            } else if (n == JOptionPane.CLOSED_OPTION) {
+                            }
+                            //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        }
+                        return true;
+                    }
+                }
+
+                return false;
+
 
             default:
                 break;
@@ -645,8 +713,20 @@ public class Board extends JPanel  implements ActionListener {
         baggs.clear();
         walls.clear();
         exits.clear();
+        level = "    ######\n"
+            + "    ##   E\n"
+            + "    ##   #\n"
+            + "  ####   ##\n"
+            + "  ##    $ #\n"
+            + "#### # ## #   ######\n"
+            + "##   # ## #####  ..#\n"
+            + "## $  $          ..#\n"
+            + "###### ### #@##  ..#\n"
+            + "    ##     #########\n"
+            + "    ########\n";
 
         initWorld();
+       // Sokoban f1 = new Sokoban(sprite, ;
         repaint();
     /*    if (isCompleted) {
             isCompleted = false;

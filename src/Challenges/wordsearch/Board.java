@@ -1,14 +1,12 @@
-package wordsearch;
+package Challenges.wordsearch;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 class StringLengthComparator implements Comparator<String> {
 
@@ -283,6 +281,10 @@ public class Board extends JPanel {
 
   public void select(int i, int j) {
     grid[i][j].select();
+  }
+
+  public void correct(int i, int j) {
+    grid[i][j].correct();
   }
 
   {

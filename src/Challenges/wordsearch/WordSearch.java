@@ -1,14 +1,15 @@
-package wordsearch;
+package Challenges.wordsearch;
+
+import Challenges.Challenge;
+import Challenges.CongratulationWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-public class WordSearch extends JFrame {
+public class WordSearch extends JFrame implements Challenge {
   public static WordSearch currentGame;
   private JPanel contentPanel;
 
@@ -16,14 +17,14 @@ public class WordSearch extends JFrame {
   private WordList wordList;
   private int wordsLeft;
   private Map<String, String> pairs;
-  private final ArrayList<String> chinese = new ArrayList<>();
   private final ArrayList<String> english = new ArrayList<>();
+  private final ArrayList<String> chinese = new ArrayList<>();
 
   public WordSearch(HashMap<String, String> pairs) {
     this.pairs = pairs;
     for (String s : pairs.keySet()) {
-      chinese.add(s);
-      english.add(pairs.get(s));
+      english.add(s);
+      chinese.add(pairs.get(s));
     }
     $$$setupUI$$$();
     this.setBackground(Color.decode("#CCE5FF"));
@@ -32,11 +33,7 @@ public class WordSearch extends JFrame {
 
     currentGame = this;
     setSize(900, 800);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    this.setVisible(true);
-    this.setLocationRelativeTo(null);
-    board.listen();
   }
 
   public boolean checkFinished() {
@@ -57,7 +54,7 @@ public class WordSearch extends JFrame {
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     contentPanel.add(titleLabel, BorderLayout.NORTH);
 
-    wordsLeft = english.size();
+    wordsLeft = chinese.size();
     wordList = new WordList(chinese);
     contentPanel.add(wordList, BorderLayout.EAST);
     wordList.revalidate();
@@ -89,20 +86,21 @@ public class WordSearch extends JFrame {
     if (checkValidSelection(start, end)) {
       // check forwards
       word = board.getWordAt(start, end);
+      this.selectWord(start, end);
       String backword = new StringBuffer(word).reverse().toString();
 
       String match = null;
 
       if (checkValidWord(word)) {
-        match = getKey(word);
+        match = pairs.get(word);
       }
       // check backword
       else if (checkValidWord(backword)) {
-        match = getKey(backword);
+        match = pairs.get(word);
       }
 
       if (match != null && !wordList.getWordList().get(match).isSelected()) {
-        this.highlightWords(start, end);
+        this.correctWord(start, end);
         wordList.checkBox(match);
         wordsLeft--;
       }
@@ -115,7 +113,8 @@ public class WordSearch extends JFrame {
     }
   }
 
-  private void highlightWords(Point start, Point end) {
+
+  private void selectWord(Point start, Point end) {
     // vertical word downwards
     if (start.x == end.x && start.y < end.y) {
       for (int i = start.y; i <= end.y; ++i) {
@@ -167,8 +166,60 @@ public class WordSearch extends JFrame {
     board.repaint();
   }
 
+  private void correctWord(Point start, Point end) {
+    // vertical word downwards
+    if (start.x == end.x && start.y < end.y) {
+      for (int i = start.y; i <= end.y; ++i) {
+        board.correct(i, start.x);
+      }
+    }
+    // vertical word upwards
+    if (start.x == end.x && start.y > end.y) {
+      for (int i = start.y; i >= end.y; --i) {
+        board.correct(i, start.x);
+      }
+    }
+    // horizontal word left->right
+    else if (start.y == end.y && start.x < end.x) {
+      for (int i = start.x; i <= end.x; ++i) {
+        board.correct(start.y, i);
+      }
+    }
+    // horizontal word right->left
+    else if (start.y == end.y && start.x > end.x) {
+      for (int i = start.x; i >= end.x; --i) {
+        board.correct(start.y, i);
+      }
+    }
+    // / diagonal word upper right to lower left
+    else if (start.x + start.y == end.x + end.y && start.x > end.x) {
+      for (int i = 0; i <= (start.x - end.x); ++i) {
+        board.correct(start.y + i, start.x - i);
+      }
+    }
+    // / diagonal word lower left to upper right
+    else if (start.x + start.y == end.x + end.y && start.x < end.x) {
+      for (int i = 0; i <= (end.x - start.x); ++i) {
+        board.correct(start.y - i, start.x + i);
+      }
+    }
+    // \ diagonal upper left to lower right
+    else if (end.x - start.x == end.y - start.y && start.x < end.x) {
+      for (int i = 0; i <= (end.x - start.x); ++i) {
+        board.correct(start.y + i, start.x + i);
+      }
+    }
+    // \ diagonal lower right to upper left
+    else if (end.x - start.x == end.y - start.y && start.x > end.x) {
+      for (int i = 0; i <= (start.x - end.x); ++i) {
+        board.correct(start.y - i, start.x - i);
+      }
+    }
+    board.repaint();
+  }
+
   private boolean checkValidWord(String word) {
-    return getKey(word) != null;
+    return pairs.containsKey(word);
   }
 
   private boolean checkValidSelection(Point start, Point end) {
@@ -188,6 +239,14 @@ public class WordSearch extends JFrame {
 
   public void decreaseWordsLeft() {
     this.wordsLeft--;
+  }
+
+  @Override
+  public boolean open() {
+    this.setVisible(true);
+    this.setLocationRelativeTo(null);
+    board.listen();
+    return true;
   }
 
   /**

@@ -26,6 +26,7 @@ public class ChooseSprite implements ActionListener
 
   JFrame f1=new JFrame("Choose Sprite");
   String sprite = "";
+  String level;
 
 
   JLabel l1,l2, l3;
@@ -33,7 +34,8 @@ public class ChooseSprite implements ActionListener
   JButton b1, b2;
 
 
-  public ChooseSprite() throws IOException {
+  public ChooseSprite(String level) throws IOException {
+    this.level = level;
 
 
     BufferedImage myImage = ImageIO.read(new File("src/resources/pick_characters.png"));
@@ -67,13 +69,13 @@ public class ChooseSprite implements ActionListener
       public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_1) {
           f1.dispose();
-          Sokoban game = new Sokoban("perso");
+          Sokoban game = new Sokoban("perso", level);
           game.setResizable(false);
 
           game.setVisible(true);
         } else if (e.getKeyCode() == KeyEvent.VK_2) {
           f1.dispose();
-          Sokoban game = new Sokoban("alpos");
+          Sokoban game = new Sokoban("alpos", level);
           game.setResizable(false);
 
           game.setVisible(true);
@@ -84,7 +86,7 @@ public class ChooseSprite implements ActionListener
       public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_2) {
           f1.dispose();
-          Sokoban game = new Sokoban("alpos");
+          Sokoban game = new Sokoban("alpos", level);
           game.setResizable(false);
 
           game.setVisible(true);
@@ -98,7 +100,7 @@ public class ChooseSprite implements ActionListener
     f1.dispose();
 
 
-    Sokoban game = new Sokoban(sprite);
+    Sokoban game = new Sokoban(sprite, level);
     game.setResizable(false);
     game.setVisible(true);
 

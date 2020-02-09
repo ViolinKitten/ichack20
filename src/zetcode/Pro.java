@@ -17,9 +17,10 @@ public class Pro implements ActionListener
   JButton b1;
   JComboBox c;
 
-
-  Pro()
+  String level;
+  Pro(String level)
   {
+    this.level = level;
     String[] patternExamples = {
         "Select",
         "Spanish",
@@ -74,14 +75,27 @@ public class Pro implements ActionListener
   {
     f1.dispose();
     try {
-      Menu p2=new Menu();
+      Menu p2=new Menu(level);
     } catch (IOException e1) {
       e1.printStackTrace();
     }
   }
   public static void main(String ag[])
   {
-    Pro p1=new Pro();
+     String level
+        =  "####################\n"
+        + "#    #             #\n"
+        + "#    #   #  $ #    #\n"
+        + "#  ###   #    #    #\n"
+        + "E        ## #########\n"
+        + "#####              #\n"
+        + "# $           #    #\n"
+        + "########  #####    #\n"
+        + "# $ #     @   #    #\n"
+        + "#   #  #   #########\n"
+        + "#      #           #\n"
+        + "####################\n";
+    Pro p1=new Pro(level);
   }
 
 
