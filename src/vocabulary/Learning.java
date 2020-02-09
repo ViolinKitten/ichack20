@@ -32,11 +32,16 @@ public class Learning extends JFrame {
             JButton button = new JButton("Listen");
             label1.setBounds(200, 10+i*50, 100, 50);
             label2.setBounds(300, 10+i*50, 100, 50);
-            button.setBounds(400, 10+i*50, 100, 50);
+            button.setBounds(400, 10+i*50, 80, 50);
             add(label1);
             add(label2);
             add(button);
         }
+
+        JButton button = new JButton("Play game!");
+        button.setBounds(250, 400, 160, 50);
+        add(button);
+
         JLabel label1 = new JLabel("");
         label1.setBounds(500, 500, 100, 50);
         add(label1);
