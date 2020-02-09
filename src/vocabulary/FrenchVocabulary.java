@@ -51,12 +51,13 @@ public class FrenchVocabulary {
 
     private static final int size = Level1French.values().length;
 
-    Level1French[] array = Level1French.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level1French[] array = Level1French.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(array[i].name());
+            list.add(array[i].toString());
         }
 
         return list;
@@ -82,12 +83,13 @@ public class FrenchVocabulary {
 
      private static final int size = Level2French.values().length;
 
-    Level2French[] array = Level2French.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level2French[] array = Level2French.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(array[i].name());
+            list.add(array[i].toString());
         }
 
         return list;
@@ -114,12 +116,13 @@ public class FrenchVocabulary {
 
     private static final int size = Level3French.values().length;
 
-    Level3French[] array = Level3French.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level3French[] array = Level3French.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(array[i].name());
+            list.add(array[i].toString());
         }
 
         return list;
@@ -144,12 +147,13 @@ public class FrenchVocabulary {
     }
      private static final int size = Level4French.values().length;
 
-    Level4French[] array = Level4French.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level4French[] array = Level4French.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(array[i].name());
+            list.add(array[i].toString());
         }
 
         return list;
@@ -176,12 +180,13 @@ public class FrenchVocabulary {
 
      private static final int size = Level5French.values().length;
 
-    Level5French[] array = Level5French.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level5French[] array = Level5French.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            list.add(array[i].name());
+            list.add(array[i].toString());
         }
 
         return list;

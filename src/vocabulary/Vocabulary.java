@@ -16,10 +16,10 @@ public class Vocabulary {
 
     private static final int size = Levels.values().length;
 
-    Levels[] array = Levels.class.getEnumConstants();
-    
+
     public ArrayList<ArrayList<String>> getVocabulary() {
-        
+        Levels[] array = Levels.class.getEnumConstants();
+
         ArrayList<ArrayList<String>> vocabulary = new ArrayList<ArrayList<String>>();
             vocabulary.add(Level1.values()[0].toList());
             vocabulary.add(Level2.values()[0].toList());
@@ -39,10 +39,11 @@ public class Vocabulary {
 
     private static final int size = Level1.values().length;
 
-    Level1[] array = Level1.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level1[] array = Level1.class.getEnumConstants();
         ArrayList<String> list = new ArrayList<>();
+
         for (int i = 0; i < size; i++) {
             list.add(array[i].name());
         }
@@ -61,9 +62,10 @@ public class Vocabulary {
     
     private static final int size = Level2.values().length;
 
-    Level2[] array = Level2.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level2[] array = Level2.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(array[i].name());
@@ -84,9 +86,10 @@ public class Vocabulary {
 
     private static final int size = Level3.values().length;
 
-    Level3[] array = Level3.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level3[] array = Level3.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(array[i].name());
@@ -105,9 +108,10 @@ public class Vocabulary {
 
     private static final int size = Level4.values().length;
 
-    Level4[] array = Level4.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level4[] array = Level4.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(array[i].name());
@@ -127,9 +131,10 @@ public class Vocabulary {
 
     private static final int size = Level5.values().length;
 
-    Level5[] array = Level5.class.getEnumConstants();
 
     private ArrayList<String> toList() {
+        Level5[] array = Level5.class.getEnumConstants();
+
         ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(array[i].name());
