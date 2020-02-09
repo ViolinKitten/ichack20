@@ -1,16 +1,18 @@
 package zetcode;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-public class Board extends JPanel {
+public class Board extends JPanel  implements ActionListener {
 
     private final int OFFSET = 30;
     private final int SPACE = 50;
@@ -18,16 +20,22 @@ public class Board extends JPanel {
     private final int RIGHT_COLLISION = 2;
     private final int TOP_COLLISION = 3;
     private final int BOTTOM_COLLISION = 4;
+    private final Font smallFont = new Font("Helvetica", Font.BOLD, 14);
+    private final int BLOCK_SIZE = 24;
+    private final int N_BLOCKS = 15;
+    private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
 
     private ArrayList<Wall> walls;
     private ArrayList<Baggage> baggs;
     private ArrayList<Area> areas;
     private ArrayList<Exit> exits;
+    private int[] scores;
 
     private Player labyrinth;
 
     private int w = 0;
     private int h = 0;
+    private int score;
 
     private boolean isCompleted = false;
 
@@ -87,13 +95,13 @@ public class Board extends JPanel {
         baggs = new ArrayList<>();
         areas = new ArrayList<>();
         exits = new ArrayList<>();
-
+        scores = new int[3];
         int x = OFFSET;
         int y = OFFSET;
 
         Wall wall;
         Baggage b;
-        Area a;
+       // Area a;
         Exit e;
 
         for (int i = 0; i < level.length(); i++) {
@@ -125,8 +133,8 @@ public class Board extends JPanel {
                     break;
 
                 case '.':
-                    a = new Area(x, y);
-                    areas.add(a);
+           //         a = new Area(x, y);
+             //       areas.add(a);
                     x += SPACE;
                     break;
 
@@ -160,10 +168,11 @@ public class Board extends JPanel {
         ArrayList<Actor> world = new ArrayList<>();
 
         world.addAll(walls);
-        world.addAll(areas);
+       // world.addAll(areas);
         world.addAll(baggs);
         world.add(labyrinth);
         world.addAll(exits);
+        drawScore((Graphics2D) g);
 
         for (int i = 0; i < world.size(); i++) {
 
@@ -178,7 +187,6 @@ public class Board extends JPanel {
             }
 
             if (isCompleted) {
-
                 g.setColor(new Color(0, 0, 0));
                 g.drawString("Completed", 25, 20);
             }
@@ -186,11 +194,28 @@ public class Board extends JPanel {
         }
     }
 
+    private void drawScore(Graphics2D g) {
+
+        int i;
+        String s;
+
+        g.setFont(smallFont);
+        g.setColor(new Color(96, 128, 255));
+        s = "Keys: " + score + "/3";
+        g.drawString(s, 10, 20);
+
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         buildWorld(g);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
     }
 
     private class TAdapter extends KeyAdapter {
@@ -376,9 +401,11 @@ public class Board extends JPanel {
 
                             Baggage item = baggs.get(j);
 
+
                             if (!bag.equals(item)) {
 
                                 if (bag.isLeftCollision(item)) {
+
                                     return true;
                                 }
                             }
@@ -387,12 +414,14 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
+                        scores[i] = 1;
+                        recalculateScore();
 
-                        bag.move(-SPACE, 0);
-                        isCompleted();
+                    //    bag.move(-SPACE, 0);
+                        // isCompleted();
                     }
                 }
-
+                repaint();
                 return false;
 
             case RIGHT_COLLISION:
@@ -410,6 +439,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isRightCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -418,11 +449,13 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(SPACE, 0);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                   //     bag.move(SPACE, 0);
+                    //    isCompleted();
                     }
                 }
+                repaint();
                 return false;
 
             case TOP_COLLISION:
@@ -440,6 +473,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isTopCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -448,12 +483,13 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(0, -SPACE);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                    //    bag.move(0, -SPACE);
+                        // isCompleted();
                     }
                 }
-
+                repaint();
                 return false;
 
             case BOTTOM_COLLISION:
@@ -471,6 +507,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isBottomCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -480,19 +518,28 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(0, SPACE);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                      //  bag.move(0, SPACE);
+                    //    isCompleted();
                     }
                 }
-
+                repaint();
                 break;
 
             default:
                 break;
         }
-
+        repaint();
         return false;
+    }
+
+    private void recalculateScore() {
+        score = Arrays.stream(scores).sum();
+        if (score == 3) {
+            JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
+        repaint();
     }
 
 
@@ -525,7 +572,7 @@ public class Board extends JPanel {
         return false;
     }
 
-    public void isCompleted() {
+  /*  public void isCompleted() {
 
         int nOfBags = baggs.size();
         int finishedBags = 0;
@@ -550,7 +597,7 @@ public class Board extends JPanel {
             isCompleted = true;
             repaint();
         }
-    }
+    } */
 
     private void restartLevel() {
 
