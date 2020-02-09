@@ -68,9 +68,11 @@ public class Board extends JPanel  implements ActionListener {
         + "#   #  #   #########\n"
         + "#      #           #\n"
         + "####################\n";
+    String sprite;
 
-    public Board(JFrame frame) {
+    public Board(JFrame frame, String sprite) {
         this.frame = frame;
+        this.sprite = sprite;
         initBoard();
     }
 
@@ -141,7 +143,7 @@ public class Board extends JPanel  implements ActionListener {
                     break;
 
                 case '@':
-                    labyrinth = new Player(x, y);
+                    labyrinth = new Player(x, y, sprite);
                     x += SPACE;
                     break;
                 case 'E':
@@ -234,7 +236,7 @@ public class Board extends JPanel  implements ActionListener {
             switch (key) {
 
                 case KeyEvent.VK_LEFT:
-                    labyrinth.initPlayer(3);
+                    labyrinth.initPlayer(3, sprite);
 
                     if (checkWallCollision(labyrinth,
                         LEFT_COLLISION)) {
@@ -254,7 +256,7 @@ public class Board extends JPanel  implements ActionListener {
                     break;
 
                 case KeyEvent.VK_RIGHT:
-                    labyrinth.initPlayer(2);
+                    labyrinth.initPlayer(2, sprite);
 
                     if (checkWallCollision(labyrinth, RIGHT_COLLISION)) {
                         return;
@@ -272,7 +274,7 @@ public class Board extends JPanel  implements ActionListener {
                     break;
 
                 case KeyEvent.VK_UP:
-                    labyrinth.initPlayer(1);
+                    labyrinth.initPlayer(1, sprite);
 
                     if (checkWallCollision(labyrinth, TOP_COLLISION)) {
                         return;
@@ -290,7 +292,7 @@ public class Board extends JPanel  implements ActionListener {
                     break;
 
                 case KeyEvent.VK_DOWN:
-                    labyrinth.initPlayer(1);
+                    labyrinth.initPlayer(1, sprite);
 
                     if (checkWallCollision(labyrinth, BOTTOM_COLLISION)) {
                         return;

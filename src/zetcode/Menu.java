@@ -41,7 +41,7 @@ public class Menu implements ActionListener
 
     b1=new JButton("Start");
 
-    f1.setSize(1200,601);
+    f1.setSize(1200,620);
     f1.setVisible(true);
     f1.setLayout(null);
     f1.setContentPane(l1);
@@ -64,10 +64,11 @@ public class Menu implements ActionListener
       public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
           f1.dispose();
-          Sokoban game = new Sokoban();
-          game.setResizable(false);
-
-          game.setVisible(true);
+          try {
+            ChooseSprite game = new ChooseSprite();
+          } catch (IOException e1) {
+            e1.printStackTrace();
+          }
         }
       }
     });
@@ -76,9 +77,11 @@ public class Menu implements ActionListener
   public void actionPerformed(ActionEvent e)
   {
     f1.dispose();
-    Sokoban game = new Sokoban();
-    game.setResizable(false);
-    game.setVisible(true);
+    try {
+      ChooseSprite game = new ChooseSprite();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
 
 
   }
