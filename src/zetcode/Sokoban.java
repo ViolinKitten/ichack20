@@ -7,15 +7,17 @@ public class Sokoban extends JFrame {
 
     private final int OFFSET = 30;
     String sprite;
+    String level;
 
-    public Sokoban(String sprite) {
+    public Sokoban(String sprite, String level) {
+        this.level = level;
         this.sprite = sprite;
         initUI();
     }
 
     private void initUI() {
         
-        Board board = new Board(this, sprite);
+        Board board = new Board(this, sprite, level);
         add(board);
 
         setTitle("Alpie");

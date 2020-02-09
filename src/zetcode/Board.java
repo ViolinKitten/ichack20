@@ -55,7 +55,7 @@ public class Board extends JPanel  implements ActionListener {
             + "    ########\n";
      */
 
-    private String level
+   /* private String level
         =  "####################\n"
         + "#    #             #\n"
         + "#    #   #  $ #    #\n"
@@ -67,10 +67,12 @@ public class Board extends JPanel  implements ActionListener {
         + "# $ #     @   #    #\n"
         + "#   #  #   #########\n"
         + "#      #           #\n"
-        + "####################\n";
+        + "####################\n"; */
     String sprite;
+    String level;
 
-    public Board(JFrame frame, String sprite) {
+    public Board(JFrame frame, String sprite, String level) {
+        this.level = level;
         this.frame = frame;
         this.sprite = sprite;
         initBoard();
@@ -592,7 +594,7 @@ public class Board extends JPanel  implements ActionListener {
                                 restartLevel();
                             } else if (n == JOptionPane.NO_OPTION) {
                                 frame.dispose();
-                                Pro f1 = new Pro();
+                                Pro f1 = new Pro(level);
                                 System.out.println("No");
                             } else if (n == JOptionPane.CLOSED_OPTION) {
                                 System.out.println("Closed by hitting the cross");
@@ -604,6 +606,42 @@ public class Board extends JPanel  implements ActionListener {
                 }
 
                 return false;
+            case RIGHT_COLLISION:
+                for (int i = 0; i < exits.size(); i++) {
+
+                    Exit exit = exits.get(i);
+
+                    if (actor.isRightCollision(exit)) {
+                        ImageIcon icon = new ImageIcon("src/resources/lock.png");
+                        UIManager UI=new UIManager();
+                        UI.put("OptionPane.background", Color.white);
+                        UI.put("Panel.background", Color.white);
+
+                        if (score != 3) {
+                            JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        } else {
+                            int n = JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!",
+                                "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
+
+                            if (n == JOptionPane.YES_OPTION) {
+                                System.out.println("Yes");
+                                restartLevel();
+                            } else if (n == JOptionPane.NO_OPTION) {
+                                frame.dispose();
+                                Pro f1 = new Pro(level);
+                                System.out.println("No");
+                            } else if (n == JOptionPane.CLOSED_OPTION) {
+                                System.out.println("Closed by hitting the cross");
+                            }
+                            //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        }
+                        return true;
+                    }
+                }
+
+                return false;
+
 
             default:
                 break;
@@ -645,8 +683,20 @@ public class Board extends JPanel  implements ActionListener {
         baggs.clear();
         walls.clear();
         exits.clear();
+        level = "    ######\n"
+            + "    ##   E\n"
+            + "    ##   #\n"
+            + "  ####   ##\n"
+            + "  ##    $ #\n"
+            + "#### # ## #   ######\n"
+            + "##   # ## #####  ..#\n"
+            + "## $  $          ..#\n"
+            + "###### ### #@##  ..#\n"
+            + "    ##     #########\n"
+            + "    ########\n";
 
         initWorld();
+       // Sokoban f1 = new Sokoban(sprite, ;
         repaint();
     /*    if (isCompleted) {
             isCompleted = false;
