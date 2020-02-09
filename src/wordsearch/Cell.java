@@ -8,6 +8,7 @@ public class Cell {
   private int column;
   private char letter;
   private boolean selected;
+  private boolean correct;
   private static int width;
 
   public Cell(int row, int column) {
@@ -30,12 +31,12 @@ public class Cell {
     this.letter = letter;
   }
 
-  public boolean isSelected() {
-    return selected;
-  }
-
   public void select() {
     this.selected = true;
+  }
+
+  public void correct() {
+    this.correct = true;
   }
 
   public static int getWidth() {
@@ -47,8 +48,13 @@ public class Cell {
   }
 
   public void draw(Graphics g) {
-    if (selected) {
+    if (correct) {
       g.setColor(Color.GREEN);
+      g.fillRect(column * width, row * width, width, width);
+      g.setColor(Color.black);
+      g.drawRect(column * width, row * width, width, width);
+    } else if (selected) {
+      g.setColor(Color.YELLOW);
       g.fillRect(column * width, row * width, width, width);
       g.setColor(Color.black);
       g.drawRect(column * width, row * width, width, width);
@@ -62,12 +68,14 @@ public class Cell {
     Font font = new Font("Helvetica", Font.PLAIN, width / 2);
     g.setFont(font);
     g.setColor(Color.black);
-    g.drawString(Character.toString(letter).toUpperCase(), (int) (column*width+(.33 * width)), (int) (width*row+(.75 * width)));
+    g.drawString(
+        Character.toString(letter).toUpperCase(),
+        (int) (column * width + (.33 * width)),
+        (int) (width * row + (.75 * width)));
   }
 
   @Override
   public String toString() {
-    return "Cell [row=" + row + ", column=" + column + ", selected="
-            + selected + "]";
+    return "Cell [row=" + row + ", column=" + column + ", selected=" + selected + "]";
   }
 }
