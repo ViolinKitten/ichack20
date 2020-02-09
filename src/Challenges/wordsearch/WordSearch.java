@@ -33,7 +33,7 @@ public class WordSearch extends JFrame implements Challenge {
 
     currentGame = this;
     setSize(900, 800);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+
   }
 
   public boolean checkFinished() {

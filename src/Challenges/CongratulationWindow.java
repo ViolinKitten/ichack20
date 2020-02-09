@@ -18,7 +18,7 @@ public class CongratulationWindow extends JFrame {
     setContentPane(contentPanel);
 
     button.addActionListener(e -> {
-      this.dispose();
+       this.dispose();
       game.dispose();
     });
   }
