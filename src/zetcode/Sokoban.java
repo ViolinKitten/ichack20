@@ -6,15 +6,16 @@ import javax.swing.JFrame;
 public class Sokoban extends JFrame {
 
     private final int OFFSET = 30;
+    String sprite;
 
-    public Sokoban() {
-
+    public Sokoban(String sprite) {
+        this.sprite = sprite;
         initUI();
     }
 
     private void initUI() {
         
-        Board board = new Board(this);
+        Board board = new Board(this, sprite);
         add(board);
 
         setTitle("Alpie");
