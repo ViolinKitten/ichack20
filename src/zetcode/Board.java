@@ -1,7 +1,10 @@
 package zetcode;
 
-import wordsearch.WordSearch;
+import Challenges.Challenge;
+import Challenges.hangman.MainHangman;
+import Challenges.wordsearch.WordSearch;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +13,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import javax.swing.*;
+import java.util.Random;
 
 public class Board extends JPanel  implements ActionListener {
 
@@ -549,23 +552,19 @@ public class Board extends JPanel  implements ActionListener {
         repaint();
     }
 
-    private void open() {
-        switch(challenge) {
-            case 1:
-                HashMap<String, String> map = new HashMap<>();
-//    map.put("苹果", "apple");
-//    map.put("香蕉", "banana");
-                map.put("apple", "苹果");
-                map.put("banana", "香蕉");
-                WordSearch game = new WordSearch(map);
-                challenge = 2;
-                break;
-            case 2:
+  private void open() {
+    Challenge challenge;
+    int randChallenge = new Random().nextInt(2);
 
+    HashMap<String, String> map = new HashMap<>();
+    //    map.put("苹果", "apple");
+    //    map.put("香蕉", "banana");
+    map.put("apple", "苹果");
+    map.put("banana", "香蕉");
 
-        }
-
-    }
+    challenge = (randChallenge == 0) ? new MainHangman("RANDOM", "BLAH") : new WordSearch(map);
+    challenge.open();
+  }
 
     private boolean checkExitCollision(Actor actor, int type) {
 

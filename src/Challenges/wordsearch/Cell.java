@@ -1,4 +1,4 @@
-package wordsearch;
+package Challenges.wordsearch;
 
 import java.awt.*;
 

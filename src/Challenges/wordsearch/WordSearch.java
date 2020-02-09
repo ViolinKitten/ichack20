@@ -1,14 +1,15 @@
-package wordsearch;
+package Challenges.wordsearch;
+
+import Challenges.Challenge;
+import Challenges.CongratulationWindow;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-public class WordSearch extends JFrame {
+public class WordSearch extends JFrame implements Challenge {
   public static WordSearch currentGame;
   private JPanel contentPanel;
 
@@ -33,10 +34,6 @@ public class WordSearch extends JFrame {
     currentGame = this;
     setSize(900, 800);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-    this.setVisible(true);
-    this.setLocationRelativeTo(null);
-    board.listen();
   }
 
   public boolean checkFinished() {
@@ -208,5 +205,13 @@ public class WordSearch extends JFrame {
    */
   public JComponent $$$getRootComponent$$$() {
     return contentPanel;
+  }
+
+  @Override
+  public boolean open() {
+    this.setVisible(true);
+    this.setLocationRelativeTo(null);
+    board.listen();
+    return true;
   }
 }
