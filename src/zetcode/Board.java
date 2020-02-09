@@ -200,7 +200,7 @@ public class Board extends JPanel  implements ActionListener {
         String s;
 
         g.setFont(smallFont);
-        g.setColor(new Color(96, 128, 255));
+        g.setColor(new Color(0, 0, 0));
         s = "Keys: " + score + "/3";
         g.drawString(s, 10, 20);
 
