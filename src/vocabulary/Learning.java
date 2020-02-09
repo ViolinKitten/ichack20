@@ -89,7 +89,7 @@ public class Learning extends JFrame implements ActionListener {
         }
     }
 
-
+/*
     public static void main(String[] args){
         int level = 0;
         Vocabulary englishVocab = new Vocabulary();
@@ -103,7 +103,7 @@ public class Learning extends JFrame implements ActionListener {
         Learning frame= new Learning(listE, new VocabularyList(listE, listF));
         frame.initUI();
         frame.setVisible(true);
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
