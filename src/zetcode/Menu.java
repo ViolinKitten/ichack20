@@ -13,8 +13,13 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Learning;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 import zetcode.Sokoban;
 
 public class Menu implements ActionListener
@@ -41,7 +46,7 @@ public class Menu implements ActionListener
 
     b1=new JButton("Start");
 
-    f1.setSize(1200,601);
+    f1.setSize(1200,620);
     f1.setVisible(true);
     f1.setLayout(null);
     f1.setContentPane(l1);
@@ -64,10 +69,19 @@ public class Menu implements ActionListener
       public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
           f1.dispose();
-          Sokoban game = new Sokoban();
-          game.setResizable(false);
+          int level = 0;
+          Vocabulary englishVocab = new Vocabulary();
+          ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
+          ArrayList<String> listE = vocabularyE.get(level);
 
-          game.setVisible(true);
+          FrenchVocabulary frenchVocab = new FrenchVocabulary();
+          ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
+          ArrayList<String> listF = vocabularyF.get(level);
+
+          Learning frame= new Learning(listE, new VocabularyList(listE, listF));
+          // frame.initUI();
+
+          frame.setVisible(true);
         }
       }
     });
@@ -76,9 +90,9 @@ public class Menu implements ActionListener
   public void actionPerformed(ActionEvent e)
   {
     f1.dispose();
-    Sokoban game = new Sokoban();
-    game.setResizable(false);
-    game.setVisible(true);
+   // Learning game = new Learning();
+
+
 
 
   }
