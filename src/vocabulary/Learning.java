@@ -16,6 +16,7 @@ public class Learning extends JFrame implements ActionListener {
 
     ArrayList<String> words;
     VocabularyList translations;
+    int level;
     JButton listenB1 = new JButton("Listen");
     JButton listenB2 = new JButton("Listen");
     JButton listenB3 = new JButton("Listen");
@@ -25,12 +26,12 @@ public class Learning extends JFrame implements ActionListener {
 
     String level1;
 
-    public Learning(ArrayList<String> words, VocabularyList translations, String level1) {
+
+    public Learning(ArrayList<String> words, VocabularyList translations, int level) {
         this.words = words;
         this.translations = translations;
-        this.level1 = level1;
-        initUI();
-        System.out.println("yoyo");
+        this.level = level;
+
 
     }
 
@@ -97,39 +98,40 @@ public class Learning extends JFrame implements ActionListener {
         }
     }
 
-/*
-    public static void main(String[] args){
-        int level = 0;
-        Vocabulary englishVocab = new Vocabulary();
-        ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
-        ArrayList<String> listE = vocabularyE.get(level);
 
-        FrenchVocabulary frenchVocab = new FrenchVocabulary();
-        ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
-        ArrayList<String> listF = vocabularyF.get(level);
-
-        Learning frame= new Learning(listE, new VocabularyList(listE, listF));
-        frame.initUI();
-        frame.setVisible(true);
-    }*/
+//    public static void main(String[] args){
+//        int lvl = 4;
+//        Vocabulary englishVocab = new Vocabulary();
+//        ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
+//        ArrayList<String> listE = vocabularyE.get(lvl);
+//
+//        FrenchVocabulary frenchVocab = new FrenchVocabulary();
+//        ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
+//        ArrayList<String> listF = vocabularyF.get(lvl);
+//
+//        Learning frame= new Learning(listE, new VocabularyList(listE, listF),lvl);
+//        frame.initUI();
+//        frame.setVisible(true);
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
+        String standardPath = "src/audio/level" + (level);
         if (src == listenB1) {
-            playSound("src/audio/Family.wav");
+            playSound(standardPath+ "/Sound0.wav");
         }
         if (src == listenB2) {
-            playSound("src/audio/Mother.wav");
+            playSound(standardPath+ "/Sound1.wav");
         }
         if (src == listenB3) {
-            playSound("src/audio/Father.wav");
+            playSound(standardPath+ "/Sound2.wav");
         }
         if (src == listenB4) {
-            playSound("src/audio/Sister.wav");
+            playSound(standardPath+ "/Sound3.wav");
         }
         if (src == listenB5) {
-            playSound("src/audio/Brother.wav");
+            playSound(standardPath+ "/Sound4.wav");
         }
         if (src == playButton) {
             //something
