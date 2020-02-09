@@ -1,5 +1,6 @@
 package vocabulary;
 
+import java.io.IOException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
+import zetcode.ChooseSprite;
+import zetcode.Sokoban;
 
 public class Learning extends JFrame implements ActionListener {
 
@@ -21,12 +24,16 @@ public class Learning extends JFrame implements ActionListener {
     JButton playButton = new JButton("Play game!");
 
 
+
     public Learning(ArrayList<String> words, VocabularyList translations) {
         this.words = words;
         this.translations = translations;
+        initUI();
+        System.out.println("yoyo");
+
     }
 
-    private void initUI() {
+    public void initUI() {
 
         setTitle("Learning");
 
@@ -125,6 +132,14 @@ public class Learning extends JFrame implements ActionListener {
         }
         if (src == playButton) {
             //something
+            try {
+                System.out.println("yo");
+                ChooseSprite game = new ChooseSprite();
+                repaint();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
         }
     }
 }
