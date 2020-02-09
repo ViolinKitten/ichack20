@@ -1,5 +1,7 @@
 package zetcode;
 
+import wordsearch.WordSearch;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,10 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import java.util.HashMap;
+import javax.swing.*;
 
 public class Board extends JPanel  implements ActionListener {
 
@@ -24,6 +24,7 @@ public class Board extends JPanel  implements ActionListener {
     private final int BLOCK_SIZE = 24;
     private final int N_BLOCKS = 15;
     private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
+    private final JFrame frame;
 
     private ArrayList<Wall> walls;
     private ArrayList<Baggage> baggs;
@@ -68,8 +69,8 @@ public class Board extends JPanel  implements ActionListener {
         + "#      #           #\n"
         + "####################\n";
 
-    public Board() {
-
+    public Board(JFrame frame) {
+        this.frame = frame;
         initBoard();
     }
 
@@ -96,6 +97,7 @@ public class Board extends JPanel  implements ActionListener {
         areas = new ArrayList<>();
         exits = new ArrayList<>();
         scores = new int[3];
+        score = 0;
         int x = OFFSET;
         int y = OFFSET;
 
@@ -536,12 +538,21 @@ public class Board extends JPanel  implements ActionListener {
 
     private void recalculateScore() {
         score = Arrays.stream(scores).sum();
+        open();
         if (score == 3) {
             JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         repaint();
     }
 
+    private void open() {
+        HashMap<String, String> map = new HashMap<>();
+//    map.put("苹果", "apple");
+//    map.put("香蕉", "banana");
+        map.put("apple", "苹果");
+        map.put("banana", "香蕉");
+        WordSearch game = new WordSearch(map);
+    }
 
     private boolean checkExitCollision(Actor actor, int type) {
 
@@ -561,7 +572,21 @@ public class Board extends JPanel  implements ActionListener {
                         if (score != 3) {
                             JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
                         } else {
-                            JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                            int n = JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!",
+                                    "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                    null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
+
+                            if (n == JOptionPane.YES_OPTION) {
+                                System.out.println("Yes");
+                                restartLevel();
+                            } else if (n == JOptionPane.NO_OPTION) {
+                                frame.dispose();
+                                Pro f1 = new Pro();
+                                System.out.println("No");
+                            } else if (n == JOptionPane.CLOSED_OPTION) {
+                                System.out.println("Closed by hitting the cross");
+                            }
+                         //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
                         }
                         return true;
                     }
@@ -611,9 +636,9 @@ public class Board extends JPanel  implements ActionListener {
         exits.clear();
 
         initWorld();
-
-        if (isCompleted) {
+        repaint();
+    /*    if (isCompleted) {
             isCompleted = false;
-        }
+        }*/
     }
 }
