@@ -40,7 +40,6 @@ public class Board extends JPanel  implements ActionListener {
     private int w = 0;
     private int h = 0;
     private int score;
-    int challenge = 1;
     private boolean isCompleted = false;
 
 
@@ -73,6 +72,7 @@ public class Board extends JPanel  implements ActionListener {
         + "####################\n"; */
     String sprite;
     String level;
+    int challengeKey = 0;
 
     public Board(JFrame frame, String sprite, String level) {
         this.level = level;
@@ -414,6 +414,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isLeftCollision(item)) {
+                                    scores[i] = 1;
+                                    recalculateScore();
 
                                     return true;
                                 }
@@ -554,16 +556,41 @@ public class Board extends JPanel  implements ActionListener {
 
   private void open() {
     Challenge challenge;
-    int randChallenge = new Random().nextInt(2);
+    System.out.println(challengeKey);
+    switch(challengeKey) {
+        case 0:
+            HashMap<String, String> map = new HashMap<>();
+            //    map.put("苹果", "apple");
+            //    map.put("香蕉", "banana");
+            map.put("apple", "苹果");
+            map.put("banana", "香蕉");
+            challenge = new WordSearch(map);
+            challenge.open();
+            challengeKey = 1;
+            break;
+        case 1:
+            challenge = new MainHangman("RANDOM", "BLAH");
+            challenge.open();
+            challengeKey = 2;
+            break;
+        case 2:
+            HashMap<String, String> map2 = new HashMap<>();
+            //    map.put("苹果", "apple");
+            //    map.put("香蕉", "banana");
+            map2.put("apple", "苹果");
+            map2.put("banana", "香蕉");
+            challenge = new WordSearch(map2);
+            challenge.open();
+            challengeKey = 0;
+            break;
+        default:
+            break;
 
-    HashMap<String, String> map = new HashMap<>();
-    //    map.put("苹果", "apple");
-    //    map.put("香蕉", "banana");
-    map.put("apple", "苹果");
-    map.put("banana", "香蕉");
+    }
 
-    challenge = (randChallenge == 0) ? new MainHangman("RANDOM", "BLAH") : new WordSearch(map);
-    challenge.open();
+
+
+
   }
 
     private boolean checkExitCollision(Actor actor, int type) {
