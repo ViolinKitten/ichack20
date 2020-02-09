@@ -12,7 +12,11 @@ public class VocabularyList {
         wordMap.put(words.get(i), translation.get(i));
     }
 
-    }   
+    }
+
+    public HashMap<String, String> getHashMap() {
+        return wordMap;
+    }
 
     public String getWord(String word){
         return wordMap.get(word);

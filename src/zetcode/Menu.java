@@ -13,8 +13,13 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Learning;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 import zetcode.Sokoban;
 
 public class Menu implements ActionListener
@@ -64,11 +69,19 @@ public class Menu implements ActionListener
       public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ENTER) {
           f1.dispose();
-          try {
-            ChooseSprite game = new ChooseSprite();
-          } catch (IOException e1) {
-            e1.printStackTrace();
-          }
+          int level = 0;
+          Vocabulary englishVocab = new Vocabulary();
+          ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
+          ArrayList<String> listE = vocabularyE.get(level);
+
+          FrenchVocabulary frenchVocab = new FrenchVocabulary();
+          ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
+          ArrayList<String> listF = vocabularyF.get(level);
+
+          Learning frame= new Learning(listE, new VocabularyList(listE, listF));
+          // frame.initUI();
+
+          frame.setVisible(true);
         }
       }
     });
@@ -77,11 +90,9 @@ public class Menu implements ActionListener
   public void actionPerformed(ActionEvent e)
   {
     f1.dispose();
-    try {
-      ChooseSprite game = new ChooseSprite();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
+   // Learning game = new Learning();
+
+
 
 
   }

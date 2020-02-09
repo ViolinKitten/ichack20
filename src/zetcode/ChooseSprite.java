@@ -7,11 +7,16 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Learning;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 
 public class ChooseSprite implements ActionListener
 {
@@ -28,7 +33,7 @@ public class ChooseSprite implements ActionListener
   JButton b1, b2;
 
 
-  ChooseSprite() throws IOException {
+  public ChooseSprite() throws IOException {
 
 
     BufferedImage myImage = ImageIO.read(new File("src/resources/pick_characters.png"));
@@ -91,9 +96,14 @@ public class ChooseSprite implements ActionListener
   public void actionPerformed(ActionEvent e)
   {
     f1.dispose();
+
+
     Sokoban game = new Sokoban(sprite);
     game.setResizable(false);
     game.setVisible(true);
+
+
+
 
 
   }

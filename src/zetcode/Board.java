@@ -37,7 +37,7 @@ public class Board extends JPanel  implements ActionListener {
     private int w = 0;
     private int h = 0;
     private int score;
-
+    int challenge = 1;
     private boolean isCompleted = false;
 
 
@@ -548,12 +548,21 @@ public class Board extends JPanel  implements ActionListener {
     }
 
     private void open() {
-        HashMap<String, String> map = new HashMap<>();
+        switch(challenge) {
+            case 1:
+                HashMap<String, String> map = new HashMap<>();
 //    map.put("苹果", "apple");
 //    map.put("香蕉", "banana");
-        map.put("apple", "苹果");
-        map.put("banana", "香蕉");
-        WordSearch game = new WordSearch(map);
+                map.put("apple", "苹果");
+                map.put("banana", "香蕉");
+                WordSearch game = new WordSearch(map);
+                challenge = 2;
+                break;
+            case 2:
+
+
+        }
+
     }
 
     private boolean checkExitCollision(Actor actor, int type) {
