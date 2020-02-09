@@ -416,8 +416,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isLeftCollision(item)) {
-                                    scores[i] = 1;
-                                    recalculateScore();
+                                    //scores[i] = 1;
+                                    recalculateScore(1);
 
                                     return true;
                                 }
@@ -427,8 +427,8 @@ public class Board extends JPanel  implements ActionListener {
                                 return true;
                             }
                         }
-                        scores[i] = 1;
-                        recalculateScore();
+                        //scores[i] = 1;
+                        recalculateScore(1);
 
                     //    bag.move(-SPACE, 0);
                         // isCompleted();
@@ -452,8 +452,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isRightCollision(item)) {
-                                    scores[j] = 1;
-                                    recalculateScore();
+                                    //scores[j] = 1;
+                                    recalculateScore(j);
                                     return true;
                                 }
                             }
@@ -462,8 +462,8 @@ public class Board extends JPanel  implements ActionListener {
                                 return true;
                             }
                         }
-                        scores[i] = 1;
-                        recalculateScore();
+                        //scores[i] = 1;
+                        recalculateScore(i);
                    //     bag.move(SPACE, 0);
                     //    isCompleted();
                     }
@@ -486,8 +486,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isTopCollision(item)) {
-                                    scores[j] = 1;
-                                    recalculateScore();
+                                    //scores[j] = 1;
+                                    recalculateScore(j);
                                     return true;
                                 }
                             }
@@ -496,8 +496,8 @@ public class Board extends JPanel  implements ActionListener {
                                 return true;
                             }
                         }
-                        scores[i] = 1;
-                        recalculateScore();
+                        //scores[i] = 1;
+                        recalculateScore(i);
                     //    bag.move(0, -SPACE);
                         // isCompleted();
                     }
@@ -520,8 +520,8 @@ public class Board extends JPanel  implements ActionListener {
                             if (!bag.equals(item)) {
 
                                 if (bag.isBottomCollision(item)) {
-                                    scores[j] = 1;
-                                    recalculateScore();
+                                    //scores[j] = 1;
+                                    recalculateScore(j);
                                     return true;
                                 }
                             }
@@ -531,8 +531,8 @@ public class Board extends JPanel  implements ActionListener {
                                 return true;
                             }
                         }
-                        scores[i] = 1;
-                        recalculateScore();
+                        //scores[i] = 1;
+                        recalculateScore(i);
                       //  bag.move(0, SPACE);
                     //    isCompleted();
                     }
@@ -547,16 +547,18 @@ public class Board extends JPanel  implements ActionListener {
         return false;
     }
 
-    private void recalculateScore() {
+    private void recalculateScore(int i) {
+        if (open()) {
+            scores[i] = 1;
+        }
         score = Arrays.stream(scores).sum();
-        open();
         if (score == 3) {
             JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
         }
         repaint();
     }
 
-  private void open() {
+  private boolean open() {
       int level = 0;
       Vocabulary englishVocab = new Vocabulary();
       ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
@@ -569,18 +571,19 @@ public class Board extends JPanel  implements ActionListener {
       HashMap<String, String> wordMap = new VocabularyList(listE, listF).getHashMap();
 
     Challenge challenge;
+    boolean result = true;
     switch(challengeKey) {
         case 0:
 
             challenge = new MainHangman(listE, wordMap);
-            challenge.open();
+            result = challenge.open();
             challengeKey = 1;
             break;
         case 1:
             //    map.put("苹果", "apple");
             //    map.put("香蕉", "banana");
             challenge = new WordSearch(wordMap);
-            challenge.open();
+            result = challenge.open();
             challengeKey = 2;
             break;
         case 2:
@@ -588,7 +591,7 @@ public class Board extends JPanel  implements ActionListener {
             //    map.put("苹果", "apple");
             //    map.put("香蕉", "banana");
             challenge = new WordSearch(wordMap);
-            challenge.open();
+            result = challenge.open();
             challengeKey = 0;
             break;
         default:
@@ -596,7 +599,7 @@ public class Board extends JPanel  implements ActionListener {
 
     }
 
-
+    return result;
 
 
   }
