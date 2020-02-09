@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 
 public class Board extends JPanel  implements ActionListener {
 
@@ -555,16 +558,24 @@ public class Board extends JPanel  implements ActionListener {
     }
 
   private void open() {
+      int level = 0;
+      Vocabulary englishVocab = new Vocabulary();
+      ArrayList<ArrayList<String>> vocabularyE = englishVocab.getVocabulary();
+      ArrayList<String> listE = vocabularyE.get(level);
+
+      FrenchVocabulary frenchVocab = new FrenchVocabulary();
+      ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
+      ArrayList<String> listF = vocabularyF.get(level);
+
+      HashMap<String, String> wordMap = new VocabularyList(listE, listF).getHashMap();
+
     Challenge challenge;
     System.out.println(challengeKey);
     switch(challengeKey) {
         case 0:
-            HashMap<String, String> map = new HashMap<>();
             //    map.put("苹果", "apple");
             //    map.put("香蕉", "banana");
-            map.put("apple", "苹果");
-            map.put("banana", "香蕉");
-            challenge = new WordSearch(map);
+            challenge = new WordSearch(wordMap);
             challenge.open();
             challengeKey = 1;
             break;
@@ -577,9 +588,7 @@ public class Board extends JPanel  implements ActionListener {
             HashMap<String, String> map2 = new HashMap<>();
             //    map.put("苹果", "apple");
             //    map.put("香蕉", "banana");
-            map2.put("apple", "苹果");
-            map2.put("banana", "香蕉");
-            challenge = new WordSearch(map2);
+            challenge = new WordSearch(wordMap);
             challenge.open();
             challengeKey = 0;
             break;
