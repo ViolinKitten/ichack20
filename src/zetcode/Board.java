@@ -558,7 +558,11 @@ public class Board extends JPanel  implements ActionListener {
                         UI.put("OptionPane.background", Color.white);
                         UI.put("Panel.background", Color.white);
 
-                        JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        if (score != 3) {
+                            JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        }
                         return true;
                     }
                 }
