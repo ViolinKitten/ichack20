@@ -3,6 +3,9 @@ package zetcode;
 import Challenges.Challenge;
 import Challenges.hangman.MainHangman;
 import Challenges.wordsearch.WordSearch;
+import vocabulary.FrenchVocabulary;
+import vocabulary.Vocabulary;
+import vocabulary.VocabularyList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +16,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
-import vocabulary.FrenchVocabulary;
-import vocabulary.Vocabulary;
-import vocabulary.VocabularyList;
 
 public class Board extends JPanel  implements ActionListener {
 
@@ -570,7 +569,6 @@ public class Board extends JPanel  implements ActionListener {
       HashMap<String, String> wordMap = new VocabularyList(listE, listF).getHashMap();
 
     Challenge challenge;
-    System.out.println(challengeKey);
     switch(challengeKey) {
         case 0:
             //    map.put("苹果", "apple");
@@ -580,7 +578,7 @@ public class Board extends JPanel  implements ActionListener {
             challengeKey = 1;
             break;
         case 1:
-            challenge = new MainHangman("RANDOM", "BLAH");
+            challenge = new MainHangman(listF, wordMap);
             challenge.open();
             challengeKey = 2;
             break;
@@ -625,14 +623,11 @@ public class Board extends JPanel  implements ActionListener {
                                     null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
 
                             if (n == JOptionPane.YES_OPTION) {
-                                System.out.println("Yes");
                                 restartLevel();
                             } else if (n == JOptionPane.NO_OPTION) {
                                 frame.dispose();
                                 Pro f1 = new Pro(level);
-                                System.out.println("No");
                             } else if (n == JOptionPane.CLOSED_OPTION) {
-                                System.out.println("Closed by hitting the cross");
                             }
                          //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
                         }
@@ -660,14 +655,11 @@ public class Board extends JPanel  implements ActionListener {
                                 null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
 
                             if (n == JOptionPane.YES_OPTION) {
-                                System.out.println("Yes");
                                 restartLevel();
                             } else if (n == JOptionPane.NO_OPTION) {
                                 frame.dispose();
                                 Pro f1 = new Pro(level);
-                                System.out.println("No");
                             } else if (n == JOptionPane.CLOSED_OPTION) {
-                                System.out.println("Closed by hitting the cross");
                             }
                             //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
                         }

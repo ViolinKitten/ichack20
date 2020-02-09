@@ -3,6 +3,9 @@ package Challenges.hangman;
 import Challenges.Challenge;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Random;
 
 public class MainHangman implements Challenge {
 
@@ -10,9 +13,10 @@ public class MainHangman implements Challenge {
   private String english;
   private String french;
 
-  public MainHangman(String english, String french) {
-    this.english = english;
-    this.french = french;
+  public MainHangman(ArrayList<String> englishWords, Map<String, String> map) {
+    int randomNum = new Random().nextInt(5);
+    this.english = englishWords.get(randomNum);
+    this.french = map.get(english);
   }
 
   @Override
