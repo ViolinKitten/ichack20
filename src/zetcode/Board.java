@@ -70,6 +70,7 @@ public class Board extends JPanel {
         addKeyListener(new TAdapter());
         setFocusable(true);
         initWorld();
+
     }
 
     public int getBoardWidth() {
@@ -206,6 +207,7 @@ public class Board extends JPanel {
             switch (key) {
 
                 case KeyEvent.VK_LEFT:
+                    labyrinth.initPlayer(3);
 
                     if (checkWallCollision(labyrinth,
                         LEFT_COLLISION)) {
@@ -225,6 +227,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_RIGHT:
+                    labyrinth.initPlayer(2);
 
                     if (checkWallCollision(labyrinth, RIGHT_COLLISION)) {
                         return;
@@ -242,6 +245,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_UP:
+                    labyrinth.initPlayer(1);
 
                     if (checkWallCollision(labyrinth, TOP_COLLISION)) {
                         return;
@@ -259,6 +263,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_DOWN:
+                    labyrinth.initPlayer(1);
 
                     if (checkWallCollision(labyrinth, BOTTOM_COLLISION)) {
                         return;

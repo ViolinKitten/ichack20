@@ -12,11 +12,38 @@ public class Player extends Actor {
     }
 
     private void initPlayer() {
+        ImageIcon iicon = new ImageIcon("src/resources/perso.png");
 
-        ImageIcon iicon = new ImageIcon("src/resources/character.png");
-        Image image = iicon.getImage().getScaledInstance(30,30,30);
+        Image image = iicon.getImage().getScaledInstance(45,45,45);
         setImage(image);
     }
+
+    public void initPlayer(int status) {
+        ImageIcon iicon;
+        Image image;
+        switch(status) {
+            case 1:
+                iicon = new ImageIcon("src/resources/perso.png");
+                image = iicon.getImage().getScaledInstance(45,45,45);
+                break;
+            case 2:
+                iicon = new ImageIcon("src/resources/perso_droite.png");
+                image = iicon.getImage().getScaledInstance(40,40,40);
+                break;
+            case 3:
+                iicon = new ImageIcon("src/resources/perso_gauche.png");
+                image = iicon.getImage().getScaledInstance(40,40,40);
+                break;
+            default:
+                iicon = new ImageIcon("src/resources/perso.png");
+                image = iicon.getImage().getScaledInstance(45,45,45);
+                break;
+        }
+
+
+        setImage(image);
+    }
+
 
     public void move(int x, int y) {
 

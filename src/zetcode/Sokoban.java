@@ -17,7 +17,7 @@ public class Sokoban extends JFrame {
         Board board = new Board();
         add(board);
 
-        setTitle("Sokoban");
+        setTitle("Alpie");
         
         setSize(board.getBoardWidth() + OFFSET,
                 board.getBoardHeight() + 2 * OFFSET);
@@ -26,12 +26,14 @@ public class Sokoban extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public static void main(String[] args) {
-        
+  /*  public static void main(String[] args) {
+
         EventQueue.invokeLater(() -> {
             
             Sokoban game = new Sokoban();
+            game.setResizable(false);
+
             game.setVisible(true);
         });
-    }
+    } */
 }
