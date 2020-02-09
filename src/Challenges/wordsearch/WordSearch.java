@@ -1,6 +1,7 @@
 package Challenges.wordsearch;
 
 import Challenges.Challenge;
+import Challenges.CongratulationWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -207,9 +208,10 @@ public class WordSearch extends JFrame implements Challenge {
   }
 
   @Override
-  public void open() {
+  public boolean open() {
     this.setVisible(true);
     this.setLocationRelativeTo(null);
     board.listen();
+    return true;
   }
 }

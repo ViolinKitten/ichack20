@@ -1,4 +1,6 @@
-package Challenges.wordsearch;
+package Challenges;
+
+import Challenges.wordsearch.WordSearch;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,7 @@ public class CongratulationWindow extends JFrame {
   private JLabel message2;
 
 
-  public CongratulationWindow(WordSearch game) {
+  public CongratulationWindow(JFrame game) {
     setSize(700, 400);
     setContentPane(contentPanel);
 

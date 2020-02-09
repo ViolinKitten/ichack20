@@ -1,13 +1,13 @@
 package Challenges.hangman;
 
-import Challenges.Challenge;
+import Challenges.CongratulationWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Hangman extends JFrame implements Challenge {
+public class Hangman extends JPanel  {
 
   private String englishWord;
   private String frenchWord;
@@ -27,12 +27,15 @@ public class Hangman extends JFrame implements Challenge {
 
   private int counter;
 
+  private boolean succeed;
+
 
   public Hangman(String englishWord, String frenchWord) {
     counter = 0;
     this.englishWord = englishWord;
     this.frenchWord = frenchWord;
     hangman = new DrawHangman();
+
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
     // Set the instructions
@@ -117,12 +120,12 @@ public class Hangman extends JFrame implements Challenge {
     hangman.paintComponent(graphics);
   }
 
-  @Override
-  public void open() {
-    setResizable(false);
-    setSize(800,800);
-    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-    setVisible(true);
+  public boolean getSucess() {
+    return succeed;
+  }
+
+  private Hangman getHangman() {
+    return this;
   }
 
   private class CheckCharAction implements ActionListener {
@@ -131,7 +134,9 @@ public class Hangman extends JFrame implements Challenge {
     public void actionPerformed(ActionEvent e) {
 
       if (counter == frenchWord.length()) {
-        // Congratulations file and exit
+        CongratulationWindow window = new CongratulationWindow((JFrame) SwingUtilities.getWindowAncestor(getHangman()));
+        window.setVisible(true);
+        window.setLocationRelativeTo(null);
       } else {
         JButton button = (JButton) e.getSource();
         int index = frenchWord.indexOf(button.getText().charAt(0));
@@ -141,12 +146,20 @@ public class Hangman extends JFrame implements Challenge {
             if (frenchWord.charAt(i) == frenchWord.charAt(index)) {
               textboxes[i].setText(frenchWord.charAt(i) + "");
               if (++counter == frenchWord.length()) {
-                // Exit
+                CongratulationWindow window = new CongratulationWindow((JFrame) SwingUtilities.getWindowAncestor(getHangman()));
+                succeed = true;
+                window.setVisible(true);
+                window.setLocationRelativeTo(null);
               }
             }
           }
         } else {
-          paintIncorrect(getGraphics());
+          if (hangman.getLivesCount() > 0) {
+            paintIncorrect(getGraphics());
+          } else {
+            succeed = false;
+            ((JFrame) SwingUtilities.getWindowAncestor(getHangman())).dispose();
+          }
         }
       }
     }

@@ -12,6 +12,10 @@ public class DrawHangman extends JPanel {
     livesCount = 11;
   }
 
+  public int getLivesCount() {
+    return livesCount;
+  }
+
   @Override
   public void paintComponent(Graphics graphics) {
     livesCount --;

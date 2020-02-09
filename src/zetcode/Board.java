@@ -1,7 +1,7 @@
 package zetcode;
 
 import Challenges.Challenge;
-import Challenges.hangman.Hangman;
+import Challenges.hangman.MainHangman;
 import Challenges.wordsearch.WordSearch;
 
 import javax.swing.*;
@@ -558,7 +558,7 @@ public class Board extends JPanel  implements ActionListener {
         map.put("apple", "苹果");
         map.put("banana", "香蕉");
 
-        challenge = (randChallenge == 0) ? new WordSearch(map) : new Hangman("RANDOM", "BLAH");
+        challenge = (randChallenge == 0) ? new MainHangman("RANDOM", "BLAH") : new WordSearch(map);
         challenge.open();
     }
 
