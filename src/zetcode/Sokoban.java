@@ -14,7 +14,7 @@ public class Sokoban extends JFrame {
 
     private void initUI() {
         
-        Board board = new Board();
+        Board board = new Board(this);
         add(board);
 
         setTitle("Alpie");
