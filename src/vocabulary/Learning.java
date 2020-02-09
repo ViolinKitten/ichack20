@@ -1,5 +1,6 @@
 package vocabulary;
 
+import java.awt.Color;
 import java.io.IOException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,10 +28,12 @@ public class Learning extends JFrame implements ActionListener {
     String level1;
 
 
-    public Learning(ArrayList<String> words, VocabularyList translations, String level1) {
+
+    public Learning(ArrayList<String> words, VocabularyList translations, String level1, int level) {
         this.words = words;
         this.translations = translations;
         this.level1 = level1;
+        this.level = level;
 
 
     }
@@ -40,6 +43,7 @@ public class Learning extends JFrame implements ActionListener {
         setTitle("Learning");
 
         setSize( 650, 650);
+        setBackground(new Color(204, 229, 255));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

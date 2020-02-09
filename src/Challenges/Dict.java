@@ -109,7 +109,8 @@ public class Dict extends JFrame implements ActionListener, Challenge {
             String word = new Vocabulary().getVocabulary().get(level).get(songName);
             success = t1.getText().toLowerCase().equals(word.toLowerCase());
             if (success) {
-                JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!",
+                JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!" + " Congratulations! You have collected all the keys!"
+,
                         "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null, new Object[] {"Ok"}, JOptionPane.YES_OPTION);
             } else {

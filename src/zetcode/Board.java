@@ -552,9 +552,7 @@ public class Board extends JPanel  implements ActionListener {
         open();
 
         score = Arrays.stream(scores).sum();
-        if (score == 3) {
-            JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
-        }
+
         repaint();
     }
 

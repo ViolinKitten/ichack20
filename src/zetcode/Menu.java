@@ -35,6 +35,7 @@ public class Menu implements ActionListener
   JTextField t1,t2, t3;
   JButton b1;
   String level1;
+  int level = 0;
 
 
   Menu(String level1) throws IOException {
@@ -80,7 +81,7 @@ public class Menu implements ActionListener
           ArrayList<ArrayList<String>> vocabularyF = frenchVocab.getVocabulary();
           ArrayList<String> listF = vocabularyF.get(level);
 
-          Learning frame= new Learning(listE, new VocabularyList(listE, listF), level1);
+          Learning frame= new Learning(listE, new VocabularyList(listE, listF), level1, level);
            frame.initUI();
 
           frame.setVisible(true);
