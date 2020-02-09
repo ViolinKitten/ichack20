@@ -1,4 +1,4 @@
-package hangman;
+package Challenges.hangman;
 
 import javax.swing.*;
 import java.awt.*;

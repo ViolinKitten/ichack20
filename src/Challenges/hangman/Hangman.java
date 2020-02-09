@@ -1,11 +1,13 @@
-package hangman;
+package Challenges.hangman;
+
+import Challenges.Challenge;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Hangman extends JPanel {
+public class Hangman extends JFrame implements Challenge {
 
   private String englishWord;
   private String frenchWord;
@@ -38,7 +40,7 @@ public class Hangman extends JPanel {
 
     Panel panelHangman = new Panel(new FlowLayout());
 
-    // Set the hangman tree
+    // Set the Challenges.hangman tree
     panelHangman.add(hangman);
     add(panelHangman);
 
@@ -113,6 +115,14 @@ public class Hangman extends JPanel {
 
   public void paintIncorrect(Graphics graphics) {
     hangman.paintComponent(graphics);
+  }
+
+  @Override
+  public void open() {
+    setResizable(false);
+    setSize(800,800);
+    setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+    setVisible(true);
   }
 
   private class CheckCharAction implements ActionListener {

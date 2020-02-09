@@ -1,14 +1,12 @@
-package wordsearch;
+package Challenges.wordsearch;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 class StringLengthComparator implements Comparator<String> {
 
