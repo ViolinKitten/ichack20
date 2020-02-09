@@ -1,16 +1,18 @@
 package zetcode;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import wordsearch.WordSearch;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import java.util.Arrays;
+import java.util.HashMap;
+import javax.swing.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel  implements ActionListener {
 
     private final int OFFSET = 30;
     private final int SPACE = 50;
@@ -18,16 +20,23 @@ public class Board extends JPanel {
     private final int RIGHT_COLLISION = 2;
     private final int TOP_COLLISION = 3;
     private final int BOTTOM_COLLISION = 4;
+    private final Font smallFont = new Font("Helvetica", Font.BOLD, 14);
+    private final int BLOCK_SIZE = 24;
+    private final int N_BLOCKS = 15;
+    private final int SCREEN_SIZE = N_BLOCKS * BLOCK_SIZE;
+    private final JFrame frame;
 
     private ArrayList<Wall> walls;
     private ArrayList<Baggage> baggs;
     private ArrayList<Area> areas;
     private ArrayList<Exit> exits;
+    private int[] scores;
 
     private Player labyrinth;
 
     private int w = 0;
     private int h = 0;
+    private int score;
 
     private boolean isCompleted = false;
 
@@ -60,8 +69,8 @@ public class Board extends JPanel {
         + "#      #           #\n"
         + "####################\n";
 
-    public Board() {
-
+    public Board(JFrame frame) {
+        this.frame = frame;
         initBoard();
     }
 
@@ -70,6 +79,7 @@ public class Board extends JPanel {
         addKeyListener(new TAdapter());
         setFocusable(true);
         initWorld();
+
     }
 
     public int getBoardWidth() {
@@ -86,13 +96,14 @@ public class Board extends JPanel {
         baggs = new ArrayList<>();
         areas = new ArrayList<>();
         exits = new ArrayList<>();
-
+        scores = new int[3];
+        score = 0;
         int x = OFFSET;
         int y = OFFSET;
 
         Wall wall;
         Baggage b;
-        Area a;
+       // Area a;
         Exit e;
 
         for (int i = 0; i < level.length(); i++) {
@@ -124,8 +135,8 @@ public class Board extends JPanel {
                     break;
 
                 case '.':
-                    a = new Area(x, y);
-                    areas.add(a);
+           //         a = new Area(x, y);
+             //       areas.add(a);
                     x += SPACE;
                     break;
 
@@ -159,10 +170,11 @@ public class Board extends JPanel {
         ArrayList<Actor> world = new ArrayList<>();
 
         world.addAll(walls);
-        world.addAll(areas);
+       // world.addAll(areas);
         world.addAll(baggs);
         world.add(labyrinth);
         world.addAll(exits);
+        drawScore((Graphics2D) g);
 
         for (int i = 0; i < world.size(); i++) {
 
@@ -177,7 +189,6 @@ public class Board extends JPanel {
             }
 
             if (isCompleted) {
-
                 g.setColor(new Color(0, 0, 0));
                 g.drawString("Completed", 25, 20);
             }
@@ -185,11 +196,28 @@ public class Board extends JPanel {
         }
     }
 
+    private void drawScore(Graphics2D g) {
+
+        int i;
+        String s;
+
+        g.setFont(smallFont);
+        g.setColor(new Color(0, 0, 0));
+        s = "Keys: " + score + "/3";
+        g.drawString(s, 10, 20);
+
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         buildWorld(g);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+
     }
 
     private class TAdapter extends KeyAdapter {
@@ -206,6 +234,7 @@ public class Board extends JPanel {
             switch (key) {
 
                 case KeyEvent.VK_LEFT:
+                    labyrinth.initPlayer(3);
 
                     if (checkWallCollision(labyrinth,
                         LEFT_COLLISION)) {
@@ -225,6 +254,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_RIGHT:
+                    labyrinth.initPlayer(2);
 
                     if (checkWallCollision(labyrinth, RIGHT_COLLISION)) {
                         return;
@@ -242,6 +272,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_UP:
+                    labyrinth.initPlayer(1);
 
                     if (checkWallCollision(labyrinth, TOP_COLLISION)) {
                         return;
@@ -259,6 +290,7 @@ public class Board extends JPanel {
                     break;
 
                 case KeyEvent.VK_DOWN:
+                    labyrinth.initPlayer(1);
 
                     if (checkWallCollision(labyrinth, BOTTOM_COLLISION)) {
                         return;
@@ -371,9 +403,11 @@ public class Board extends JPanel {
 
                             Baggage item = baggs.get(j);
 
+
                             if (!bag.equals(item)) {
 
                                 if (bag.isLeftCollision(item)) {
+
                                     return true;
                                 }
                             }
@@ -382,12 +416,14 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
+                        scores[i] = 1;
+                        recalculateScore();
 
-                        bag.move(-SPACE, 0);
-                        isCompleted();
+                    //    bag.move(-SPACE, 0);
+                        // isCompleted();
                     }
                 }
-
+                repaint();
                 return false;
 
             case RIGHT_COLLISION:
@@ -405,6 +441,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isRightCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -413,11 +451,13 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(SPACE, 0);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                   //     bag.move(SPACE, 0);
+                    //    isCompleted();
                     }
                 }
+                repaint();
                 return false;
 
             case TOP_COLLISION:
@@ -435,6 +475,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isTopCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -443,12 +485,13 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(0, -SPACE);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                    //    bag.move(0, -SPACE);
+                        // isCompleted();
                     }
                 }
-
+                repaint();
                 return false;
 
             case BOTTOM_COLLISION:
@@ -466,6 +509,8 @@ public class Board extends JPanel {
                             if (!bag.equals(item)) {
 
                                 if (bag.isBottomCollision(item)) {
+                                    scores[j] = 1;
+                                    recalculateScore();
                                     return true;
                                 }
                             }
@@ -475,21 +520,39 @@ public class Board extends JPanel {
                                 return true;
                             }
                         }
-
-                        bag.move(0, SPACE);
-                        isCompleted();
+                        scores[i] = 1;
+                        recalculateScore();
+                      //  bag.move(0, SPACE);
+                    //    isCompleted();
                     }
                 }
-
+                repaint();
                 break;
 
             default:
                 break;
         }
-
+        repaint();
         return false;
     }
 
+    private void recalculateScore() {
+        score = Arrays.stream(scores).sum();
+        open();
+        if (score == 3) {
+            JOptionPane.showMessageDialog(null,"Congratulations! You have collected all the keys!","Information",JOptionPane.INFORMATION_MESSAGE);
+        }
+        repaint();
+    }
+
+    private void open() {
+        HashMap<String, String> map = new HashMap<>();
+//    map.put("苹果", "apple");
+//    map.put("香蕉", "banana");
+        map.put("apple", "苹果");
+        map.put("banana", "香蕉");
+        WordSearch game = new WordSearch(map);
+    }
 
     private boolean checkExitCollision(Actor actor, int type) {
 
@@ -506,7 +569,25 @@ public class Board extends JPanel {
                         UI.put("OptionPane.background", Color.white);
                         UI.put("Panel.background", Color.white);
 
-                        JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        if (score != 3) {
+                            JOptionPane.showMessageDialog(null,"Collect all the keys to open the lock!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        } else {
+                            int n = JOptionPane.showOptionDialog(new JFrame(), "Well done! You have completed this level!",
+                                    "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                                    null, new Object[] {"Next Level", "Menu"}, JOptionPane.YES_OPTION);
+
+                            if (n == JOptionPane.YES_OPTION) {
+                                System.out.println("Yes");
+                                restartLevel();
+                            } else if (n == JOptionPane.NO_OPTION) {
+                                frame.dispose();
+                                Pro f1 = new Pro();
+                                System.out.println("No");
+                            } else if (n == JOptionPane.CLOSED_OPTION) {
+                                System.out.println("Closed by hitting the cross");
+                            }
+                         //   JOptionPane.showMessageDialog(null,"Well done! You have completed this level!","Information",JOptionPane.INFORMATION_MESSAGE, icon);
+                        }
                         return true;
                     }
                 }
@@ -520,7 +601,7 @@ public class Board extends JPanel {
         return false;
     }
 
-    public void isCompleted() {
+  /*  public void isCompleted() {
 
         int nOfBags = baggs.size();
         int finishedBags = 0;
@@ -545,7 +626,7 @@ public class Board extends JPanel {
             isCompleted = true;
             repaint();
         }
-    }
+    } */
 
     private void restartLevel() {
 
@@ -555,9 +636,9 @@ public class Board extends JPanel {
         exits.clear();
 
         initWorld();
-
-        if (isCompleted) {
+        repaint();
+    /*    if (isCompleted) {
             isCompleted = false;
-        }
+        }*/
     }
 }
