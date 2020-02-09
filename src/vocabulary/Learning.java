@@ -27,10 +27,10 @@ public class Learning extends JFrame implements ActionListener {
     String level1;
 
 
-    public Learning(ArrayList<String> words, VocabularyList translations, int level) {
+    public Learning(ArrayList<String> words, VocabularyList translations, String level1) {
         this.words = words;
         this.translations = translations;
-        this.level = level;
+        this.level1 = level1;
 
 
     }
@@ -137,7 +137,6 @@ public class Learning extends JFrame implements ActionListener {
             //something
             dispose();
             try {
-                System.out.println("yo");
                 ChooseSprite game = new ChooseSprite(level1);
                 repaint();
             } catch (IOException e1) {

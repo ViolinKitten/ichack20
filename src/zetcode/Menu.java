@@ -81,7 +81,7 @@ public class Menu implements ActionListener
           ArrayList<String> listF = vocabularyF.get(level);
 
           Learning frame= new Learning(listE, new VocabularyList(listE, listF), level1);
-          // frame.initUI();
+           frame.initUI();
 
           frame.setVisible(true);
         }

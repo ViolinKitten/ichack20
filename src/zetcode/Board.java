@@ -1,6 +1,7 @@
 package zetcode;
 
 import Challenges.Challenge;
+import Challenges.Dict;
 import Challenges.hangman.MainHangman;
 import Challenges.wordsearch.WordSearch;
 import vocabulary.FrenchVocabulary;
@@ -589,7 +590,7 @@ public class Board extends JPanel  implements ActionListener {
             HashMap<String, String> map2 = new HashMap<>();
             //    map.put("苹果", "apple");
             //    map.put("香蕉", "banana");
-            challenge = new WordSearch(wordMap);
+            challenge = new Dict(listE, new VocabularyList(listE, listF), 0);
             challenge.open();
             challengeKey = 0;
             break;
